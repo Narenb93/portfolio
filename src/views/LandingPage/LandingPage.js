@@ -18,9 +18,7 @@ import Parallax from "components/Parallax/Parallax.js";
 import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 // Sections for this page
-import ProductSection from "./Sections/ProductSection.js";
-import TeamSection from "./Sections/TeamSection.js";
-import WorkSection from "./Sections/WorkSection.js";
+import TimelineSection from "./Sections/TimelineSection.js";
 
 const dashboardRoutes = [];
 
@@ -42,10 +40,10 @@ export default function LandingPage(props) {
           color: "white"
         }}
         {...rest}
-      />
-      <Parallax filter image={require("assets/img/landing-bg.jpg")}>
+      />      
+      <Parallax filter image={require("assets/img/landing-bg.jpg")}>      
         <div className={classes.container}>
-          <GridContainer>
+          {/* <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
               <h1 className={classes.title}>Your Story Starts With Us.</h1>
               <h4>
@@ -66,14 +64,14 @@ export default function LandingPage(props) {
                 Watch video
               </Button>
             </GridItem>
-          </GridContainer>
+          </GridContainer> */}
         </div>
       </Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
-          <ProductSection />
-          <TeamSection />
-          <WorkSection />
+          <TimelineSection />
+          {/* <TeamSection />
+          <WorkSection /> */}
         </div>
       </div>
       <Footer />

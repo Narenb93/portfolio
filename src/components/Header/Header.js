@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // nodejs library to set properties for components
@@ -15,6 +15,13 @@ import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "assets/jss/material-kit-react/components/headerStyle.js";
+import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
+import HomeIcon from "@material-ui/icons/Home";
+import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import FlashOnIcon from "@material-ui/icons/FlashOn";
+import styled from "styled-components";
+import 'assets/css/fonts.css';
+import Canvas from "components/Canvas";
 
 const useStyles = makeStyles(styles);
 
@@ -53,30 +60,107 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
+  const { color, rightLinks, brand, fixed, absolute } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
     [classes.absolute]: absolute,
     [classes.fixed]: fixed
   });
-  const brandComponent = <Button className={classes.title}>{brand}</Button>;
+  const customStyles = makeStyles({
+    root: {
+      fontFamily: "Lexend",
+      fontSize: "30px",
+      height: "70px",
+      '& p': {
+        margin: "5px"
+      }
+    },
+    leftIcons: {
+      justifyContent: "space-between",
+      display: "flex",
+      flexGrow: "1",
+      maxWidth: "600px"
+    },
+    iconComp: {
+      cursor: "pointer",
+      marginLeft: "auto",
+      marginRight: "auto",
+      textAlign: "center",
+      fontFamily: "Lexend",
+      width: "150px",
+      display: "flex",
+      flexDirection: "column",
+      '& svg': {
+        margin: "0 auto 0 auto"
+      },
+      '&:hover': {
+        '& p': {
+          display: "inline-flex",
+          margin: "0 auto 0 auto",
+          fontSize: "10px"
+        }
+      },
+      '& p': {
+        display: "none",
+        textTransform: "uppercase",
+        letterSpacing: "3px",
+        fontSize: "10px"    
+      }
+    },
+    iconCompActive: {
+      cursor: "pointer",
+      marginLeft: "auto",
+      marginRight: "auto",
+      textAlign: "center",
+      fontFamily: "Lexend",
+      width: "150px",
+      display: "flex",
+      flexDirection: "column",
+      '& svg': {
+        margin: "0 auto 0 auto"
+      },
+      '& p': {
+        display: "inline-flex",
+        margin: "0 auto 0 auto",
+        textTransform: "uppercase",
+        letterSpacing: "3px",
+        fontSize: "10px"
+      }
+    }
+  })
+  const customClass = customStyles()
+  const [activeIcon, setActiveIcon] = useState(0)
+  const handleTabClick = (event) => {
+    setActiveIcon(event)
+  }
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
-        {leftLinks !== undefined ? brandComponent : null}
-        <div className={classes.flex}>
-          {leftLinks !== undefined ? (
-            <Hidden smDown implementation="css">
-              {leftLinks}
-            </Hidden>
-          ) : (
-            brandComponent
-          )}
+        <div className={customClass.leftIcons}>
+          <div onClick={() => handleTabClick("0")} id="0" className={activeIcon == "0" ? customClass.iconCompActive : customClass.iconComp}>
+            <HomeIcon />
+            <p>Home</p>
+          </div>
+          <div onClick={() => handleTabClick("1")} key={"1"} className={activeIcon == "1" ? customClass.iconCompActive : customClass.iconComp}>
+            <PersonOutlineIcon />
+            <p>About</p>
+          </div>
+          <div onClick={() => handleTabClick("2")} key={"2"} className={activeIcon == "2" ? customClass.iconCompActive : customClass.iconComp}>
+            <FlashOnIcon/>
+            <p>Projects</p>
+          </div>
+          <div onClick={() => handleTabClick("3")} key={"3"} className={activeIcon == "3" ? customClass.iconCompActive : customClass.iconComp}>
+            <AllInclusiveIcon/>
+            <p>Blog</p>
+          </div>
         </div>
-        <Hidden smDown implementation="css">
+        <div className={customClass.root}>
+          <p>NAREN</p>
+        </div>
+        {/* <Hidden smDown implementation="css">
           {rightLinks}
-        </Hidden>
+        </Hidden> */}
         <Hidden mdUp>
           <IconButton
             color="inherit"
@@ -98,7 +182,6 @@ export default function Header(props) {
           onClose={handleDrawerToggle}
         >
           <div className={classes.appResponsive}>
-            {leftLinks}
             {rightLinks}
           </div>
         </Drawer>
@@ -124,7 +207,6 @@ Header.propTypes = {
     "dark"
   ]),
   rightLinks: PropTypes.node,
-  leftLinks: PropTypes.node,
   brand: PropTypes.string,
   fixed: PropTypes.bool,
   absolute: PropTypes.bool,
