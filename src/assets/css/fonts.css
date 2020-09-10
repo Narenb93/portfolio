@@ -2,5 +2,7 @@
     font-family: 'Lexend';
     src: local('Lexend'), url(../fonts/LexendPeta-Regular.ttf) format('truetype');
   }
-
   
+  body {
+    font-family: 'Roboto', sans-serif;
+  }

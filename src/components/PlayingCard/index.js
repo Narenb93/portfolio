@@ -18,6 +18,7 @@ export default function PlayingCard(props) {
                     </div>
                 </div>
                 <div class="card-content">
+                    <p>{props.content}</p>
                     <FontAwesomeIcon icon={props.icon} />
                 </div>
                 <div class="card-footer">
